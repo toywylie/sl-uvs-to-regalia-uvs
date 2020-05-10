@@ -1,0 +1,5 @@
+This work was initially created by Toy Wylie and is licensed under the Creative Commons CC BY 3.0 License:
+- http://creativecommons.org/licenses/by/3.0/
+
+The provided DAE file is a modified version of Linden Lab's original avatar mesh, licensed under CC BY 3.0:
+- The model's UV map and weight painting was slightly adjusted to allow for better baking results
