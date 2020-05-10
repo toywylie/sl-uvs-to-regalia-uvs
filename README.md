@@ -12,7 +12,7 @@ Prerequisites:
 
 Quick HOWTO:
 - Download the DAE file provided in this repository and copy it into the Regalia devkit folder
-- Create a new blend file
+- Create a new blend file, do **NOT** use an existing one as this script will clean out everything inside the file
 - Create a new script inside the blend file (remember to add the .py extension)
 - Copy/Paste the python file in this repository to your script
 - Modify the path names at the top of the python script to point to your file locations
