@@ -1,2 +1,19 @@
-# sl-uvs-to-regalia-uvs
 Blender python script to convert textures made for the Second Life default body to the Sugarcult Project Regalia bodies.
+
+Note:
+- This is the very first implementation of this tool and will not work for everyone
+- Hopefully this can and will be improved to be easier to use very soon
+- Might be good to turn this into a real Add-on with a panel to look for textures and the Regalia devkit
+
+Prerequisites:
+- Install the Project Regalia development kit Blender file (you get it with the body)
+- Install Blender 2.82 or higher (I didn't test it on earlier versions)
+
+Quick HOWTO:
+- Download the DAE file provided in this repository and copy it into the Regalia devkit folder
+- Create a new blend file
+- Create a new script inside the blend file (remember to add the .py extension)
+- Copy/Paste the python file in this repository to your script
+- Modify the path names at the top of the python scripts to point to your file locations
+- Run the script
+- Find the Regalia_Bake_Left.png and Regalia_Bake_Right.png images in the same folder
