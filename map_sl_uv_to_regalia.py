@@ -357,14 +357,14 @@ bpy.ops.object.select_all(action = 'DESELECT')
 # Apply armature to Regalia body
 regalia_body.select_set(True)
 bpy.context.view_layer.objects.active = regalia_body
-bpy.ops.object.modifier_apply(apply_as = 'DATA', modifier = "Avatar")
+bpy.ops.object.modifier_apply(modifier = "Avatar")
 regalia_body.select_set(False)
 
 # Apply armature and shrinkwrap to SL body
 base_female_body.select_set(True)
 bpy.context.view_layer.objects.active = base_female_body
-bpy.ops.object.modifier_apply(apply_as = 'DATA', modifier = "Armature")
-bpy.ops.object.modifier_apply(apply_as = 'DATA', modifier = "Shrinkwrap")
+bpy.ops.object.modifier_apply(modifier = "Armature")
+bpy.ops.object.modifier_apply(modifier = "Shrinkwrap")
 base_female_body.select_set(False)
 
 regalia_body.parent = None
