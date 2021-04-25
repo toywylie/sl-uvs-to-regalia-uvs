@@ -7,8 +7,9 @@ import os.path
 SOURCE_UPPER_BODY_IMAGE = bpy.path.abspath('//sl_upper_body_template.png')
 SOURCE_LOWER_BODY_IMAGE = bpy.path.abspath('//sl_lower_body_template.png')
 
-# path to the Regalia Development Kit blend file
-REGALIA_BLEND_FILE = bpy.path.abspath('//Project_Regalia_furrybody_MASTER_1.7.blend')
+# path to the Regalia Development Kit blend files 1.7 and 1.8
+REGALIA_BLEND_FILE_17 = bpy.path.abspath('//Project_Regalia_furrybody_MASTER_1.7.blend')
+REGALIA_BLEND_FILE_18 = bpy.path.abspath('//Project_Regalia_furrybody_DUMMY_1.8experimental.blend')
 # path to the SL body DAE file
 SL_BODY_DAE_FILE = bpy.path.abspath('//SL_Female_Body_UV_Mod.dae')
 # URL to download the SL bod DAE file
@@ -71,8 +72,11 @@ if not os.path.isfile(SOURCE_UPPER_BODY_IMAGE):
     raise Exception()
 
 # Check if the Regalia dev kit is available
-if not os.path.isfile(REGALIA_BLEND_FILE):
-    raise Exception()
+devkit_file = REGALIA_BLEND_FILE_18
+if not os.path.isfile(REGALIA_BLEND_FILE_18):
+    devkit_file = REGALIA_BLEND_FILE_17
+    if not os.path.isfile(REGALIA_BLEND_FILE_17):
+        raise Exception()
 
 # Check if SL body DAE needs to be downloaded
 if not os.path.isfile(SL_BODY_DAE_FILE):
@@ -85,7 +89,7 @@ if not os.path.isfile(SL_BODY_DAE_FILE):
 
 # Append the Regalia main body
 bpy.ops.wm.append(
-    directory = REGALIA_BLEND_FILE + '/Object',
+    directory = devkit_file + '/Object',
     filename = 'body_athletic'
 )
 
@@ -104,18 +108,30 @@ if regalia_armature == None:
     raise Exception()
 
 # Append the rest of the body
+# Parts available in one devkit but not the other will fail silently, so we
+# just load all of them
+
+# 1.7 devkit
 bpy.ops.wm.append(
-    directory = REGALIA_BLEND_FILE + '/Object',
+    directory = devkit_file + '/Object',
     filename = 'athletic_wrists'
 )
 
+# 1.7 devkit
 bpy.ops.wm.append(
-    directory = REGALIA_BLEND_FILE + '/Object',
+    directory = devkit_file + '/Object',
     filename = 'athletic_hands'
 )
 
+# 1.8 devkit
 bpy.ops.wm.append(
-    directory = REGALIA_BLEND_FILE + '/Object',
+    directory = devkit_file + '/Object',
+    filename = 'HANDS'
+)
+
+# 1.7 and 1.8 devkit
+bpy.ops.wm.append(
+    directory = devkit_file + '/Object',
     filename = 'planti-feet_athletic'
 )
 
@@ -177,11 +193,10 @@ for object in to_delete:
 # Deselect everything
 bpy.ops.object.select_all(action = 'DESELECT')
 
-# Select all Regalia body parts
-bpy.data.objects['athletic_hands'].select_set(True)
-bpy.data.objects['athletic_wrists'].select_set(True)
-bpy.data.objects['planti-feet_athletic'].select_set(True)
-bpy.data.objects['body_athletic'].select_set(True)
+# Select all available Regalia body parts
+for part in ['athletic_hands', 'athletic_wrists', 'planti-feet_athletic', 'body_athletic', 'HANDS']:
+    if part in bpy.data.objects:
+        bpy.data.objects[part].select_set(True)
 
 # Make the main body the active object
 bpy.context.view_layer.objects.active = bpy.data.objects['body_athletic']
@@ -232,7 +247,7 @@ bpy.ops.mesh.select_all(action = 'DESELECT')
 # Select all faces on the right side of the body, based on the materials
 slot_index = 0
 for slot in regalia_body.material_slots:
-    if slot.name in ["a", "b", "c"] or slot.name[:2] in ["a.", "b.", "c.", "d."]:
+    if slot.name in ["a", "b", "c", "n"] or slot.name[:2] in ["a.", "b.", "c.", "d."]:
         regalia_body.active_material_index = slot_index
         bpy.ops.object.material_slot_select()
     slot_index += 1
@@ -250,7 +265,7 @@ bpy.ops.mesh.select_all(action = 'DESELECT')
 # Select all faces on the left side of the body, based on the materials
 slot_index = 0
 for slot in regalia_body.material_slots:
-    if slot.name[:2] in ["e.", "f.", "g.", "h."]:
+    if slot.name == "o" or slot.name[:2] in ["e.", "f.", "g.", "h."]:
         regalia_body.active_material_index = slot_index
         bpy.ops.object.material_slot_select()
     slot_index += 1
