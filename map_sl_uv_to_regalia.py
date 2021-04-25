@@ -341,6 +341,10 @@ bpy.ops.object.material_slot_remove_unused()
 # Set up Shrinkwrap modifier
 #
 
+# scale the SL body a little to fit the 1.8 devkit better
+if devkit_file == REGALIA_BLEND_FILE_18:
+    bpy.ops.transform.resize(value=(1.07, 1, 1))
+
 shrinkwrap = base_female_body.modifiers.new(name = "Shrinkwrap", type = "SHRINKWRAP")
 shrinkwrap.target = regalia_body
 shrinkwrap.offset = 0.001
