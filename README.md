@@ -19,5 +19,6 @@ Quick HOWTO:
 - Create a new script inside the blend file (remember to add the .py extension)
 - Copy/Paste the python file in this repository to your script
 - Modify the path names at the top of the python script to point to your file locations
+- IMPORTANT: Save your .blend file so any relative paths (starting with "//") can work
 - Run the script
 - Find the Regalia_Bake_Left.png and Regalia_Bake_Right.png images in the same folder
